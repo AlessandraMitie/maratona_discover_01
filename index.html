@@ -5,32 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dev.finance$</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1 id="logo">dev.finance$</h1>
+        <img src="./assets/logo.svg" alt="Logo Dev Finance">
     </header>
 
-    <main>
+    <main class="container">
         <section id="balance">
-            <h2>Balanço</h2>
+            <h2 class="sr-onnly">Balanço</h2>
 
             <div class="card">
-                <h3>Entradas</h3>
+                <h3>
+                    <span>Entradas</span>
+                    <img src="./assets/income.svg" alt="Imagem de entradas">
+                </h3>
                 <p>R$ 5000,00</p>
             </div>
             <div class="card">
-                <h3>Saídas</h3>
-                <p>R$ 5000,00</p>
+                <h3>
+                    <span>Saídas</span>
+                    <img src="./assets/expense.svg" alt="Imagem de saídas">
+                </h3>
+                <p>R$ 2000,00</p>
             </div>
-            <div class="card">
-                <h3>Total</h3>
-                <p>R$ 5000,00</p>
+            <div class="card total">
+                <h3>
+                    <span>Total</span>
+                    <img src="./assets/total.svg" alt="Imagem de total">
+                </h3>
+                <p>R$ 3000,00</p>
             </div>
         </section>
 
         <section id="transaction">
-            <h2>Transações</h2>
+            <h2 class="sr-only">Transações</h2>
+
+            <a href="#" class="button new"></a>
 
             <table id="data-table">
                 <thead>
@@ -42,19 +57,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td> Luz </td>
-                        <td> R$ 500,00 </td>
-                        <td> 23/01/2021 </td>
+                        <td class="description"> Luz </td>
+                        <td class="expense"> R$ 500,00 </td>
+                        <td class="date"> 23/01/2021 </td>
                     </tr>
                     <tr>
-                        <td> Criação website </td>
-                        <td> R$ 5000,00 </td>
-                        <td> 23/01/2021 </td>
+                        <td class="description"> Criação website </td>
+                        <td class="income"> R$ 5000,00 </td>
+                        <td class="date"> 23/01/2021 </td>
                     </tr>
                     <tr>
-                        <td> Internet </td>
-                        <td> R$ 500,00 </td>
-                        <td> 23/01/2021 </td>
+                        <td class="description"> Internet </td>
+                        <td class="expense"> R$ 500,00 </td>
+                        <td class="date"> 23/01/2021 </td>
                     </tr>
                 </tbody>
             </table>
