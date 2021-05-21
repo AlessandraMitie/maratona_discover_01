@@ -11,38 +11,66 @@ const Modal = {
     }
 }
 
-const transactions = [
-    {
-        id: 1,
-        description: 'Luz',
-        amount: -50000,
-        date: '23/01/2021',
-    },
-    {
-        id: 2,
-        description: 'Website',
-        amount: 500000,
-        date: '23/01/2021',
-    },
-    {
-        id: 3,
-        description: 'Internet',
-        amount: -20000,
-        date: '23/01/2021',
-    },
-]
-
 const Transaction = {
+    all: [
+        {
+            description: 'Luz',
+            amount: -50000,
+            date: '23/01/2021',
+        },
+        {
+            description: 'Website',
+            amount: 500000,
+            date: '23/01/2021',
+        },
+        {
+            description: 'Internet',
+            amount: -20000,
+            date: '23/01/2021',
+        },
+    ],
+
+    add(transaction){
+        Transaction.all.push(transaction)
+
+        App.reload()
+    },
+
+    remove(index) {
+        Transaction.all.splice(index, 1)
+        //splice vai esperar o número do index do array, e quantos elementos será deletados
+
+        App.reload()
+    },
+
     incomes() {
-        //somar as entradas
+        let income = 0;
+        //pegar todas as transações
+        //para cada transacação,
+        Transaction.all.forEach(transaction => {
+            //se for maior que zero
+            if(transaction.amount > 0) {
+                //somar a uma variável e retornar a variável
+                income += transaction.amount;
+            }
+        })
+        return income;
     },
 
     expenses() {
         //somar as saídas
+        let expense = 0;
+        Transaction.all.forEach(transaction => {
+            if(transaction.amount < 0) {
+                expense += transaction.amount;
+            }
+        })
+        return expense;
     },
 
     total() {
         //entradas - saídas
+        return Transaction.incomes() + Transaction.expenses()
     }
 }
 
@@ -70,6 +98,22 @@ const DOM = {
             </td>
         `
         return html
+    },
+
+    updateBalance() {
+        document
+            .getElementById('incomeDisplay')
+            .innerHTML = Utils.formatCurrency(Transaction.incomes())
+        document
+            .getElementById('expenseDisplay')
+            .innerHTML = Utils.formatCurrency(Transaction.expenses())
+        document
+            .getElementById('totalDisplay')
+            .innerHTML = Utils.formatCurrency(Transaction.total())
+    },
+
+    clearTransactions() {
+        DOM.transactionsContainer.innerHTML = ""
     }
 }
 
@@ -95,7 +139,24 @@ const Utils = {
     }
 }
 
-//para cada elemento dentro de transactions, vai rodar a função transaction, que vai rodar a funcionalidade e passar a transaction do momento
-transactions.forEach(function(transaction){
-    DOM.addTransaction(transaction)
-})
+const Form = {
+    
+}
+
+const App = {
+    init() {
+        //para cada elemento dentro de transactions, vai rodar a função transaction, que vai rodar a funcionalidade e passar a transaction do momento
+        Transaction.all.forEach(transaction => {
+            DOM.addTransaction(transaction)
+        })
+
+        DOM.updateBalance()
+
+    },
+    reload() {
+        DOM.clearTransactions()
+        App.init()
+    },
+}
+
+App.init()
