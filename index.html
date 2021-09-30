@@ -73,11 +73,11 @@
         </section>
     </main>
 
-    <div class="modal-overlay active">
+    <div class="modal-overlay">
         <div class="modal">
             <div id="form">
                 <h2>Nova Transação</h2>
-                <form action="" submit="Form.submit(event)">
+                <form action="" onsubmit="Form.submit(event)">
                     <div class="input-group">
                         <label 
                             class="sr-only"
@@ -86,8 +86,8 @@
                         <!-- o for da label é para referenciar qual o elemento será "linkado" com a label. Essa referência é realizada colocando o id. Neste caso, o id do input é amount-->
                         <input 
                             type="text" 
-                            id="amount" 
-                            name="amount"
+                            id="description" 
+                            name="description"
                             placeholder="Descrição"
                         />
                     </div>
@@ -137,3 +137,5 @@
     
 </body>
 </html>
+
+
