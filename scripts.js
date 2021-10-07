@@ -11,24 +11,18 @@ const Modal = {
     }
 }
 
+const Storage = {
+    get() {
+        return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
+    },
+
+    set(transactions) {
+        localStorage.setItem("dev.finances:transactions", JSON.stringify(transactions))
+    }
+}
+
 const Transaction = {
-    all: [
-        {
-            description: 'Luz',
-            amount: -50000,
-            date: '23/01/2021',
-        },
-        {
-            description: 'Website',
-            amount: 500000,
-            date: '23/01/2021',
-        },
-        {
-            description: 'Internet',
-            amount: -20000,
-            date: '23/01/2021',
-        },
-    ],
+    all: Storage.get(),
 
     add(transaction){
         Transaction.all.push(transaction)
@@ -77,6 +71,7 @@ const Transaction = {
 // substituir os dados do html com os dados do js
 const DOM = {
     transactionsContainer: document.querySelector('#data-table tbody'),
+
     addTransaction(transaction, index) {
         const tr = document.createElement('tr')
         tr.innerHTML = DOM.innerHTMLTransaction(transaction, index)
@@ -91,9 +86,9 @@ const DOM = {
         const amount = Utils.formatCurrency(transaction.amount)
 
         const html = `
-            <td class="description"> ${transaction.description} </td>
-            <td class="${CSSclass}"> ${amount} </td>
-            <td class="date"> ${transaction.date} </td>
+            <td class="description">${transaction.description}</td>
+            <td class="${CSSclass}">${amount}</td>
+            <td class="date">${transaction.date}</td>
             <td>
                 <img onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação">
             </td>
@@ -122,7 +117,8 @@ const Utils = {
     formatAmount(value) {
         value = Number(value) * 100
 
-        return value;
+        return Math.round(value);
+        //Math.round vai arredondar o número
     },
 
     formatDate(date) {
@@ -219,14 +215,10 @@ const Form = {
             //modal feche
             Modal.close()
         } catch (error) {
-            console.log(error.message)
             alert(error.message)
         }
-        
     }
-
 }
-
 
 const App = {
     init() {
@@ -236,6 +228,8 @@ const App = {
         })
 
         DOM.updateBalance()
+
+        Storage.set(Transaction.all)
 
     },
     reload() {
